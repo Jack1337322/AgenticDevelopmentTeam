@@ -18,7 +18,7 @@ Present a summary of the technical design. Wait for my approval before proceedin
 ## Step 5: Implement
 Create a feature branch: `feat/[feature-name]`
 Use the **implementer** agent to implement each phase from the design doc.
-After each phase, run: `pnpm test && pnpm typecheck && pnpm lint`
+After each phase, run the validation command from `PROJECT.md`
 
 ## Step 6: Test
 Use the **tester** agent to validate all acceptance criteria from the PRD

@@ -16,10 +16,11 @@ Investigate bugs, identify root causes, and propose evidence-based fixes.
 ## Process
 
 1. Reproduce the issue (run relevant tests or commands)
-2. Read error messages and stack traces carefully
-3. Trace the code path from entry point to failure
-4. Identify the root cause (not just the symptom)
-5. Propose a fix with evidence
+2. Read `PROJECT.md` for tech stack, commands, and directory layout
+3. Read error messages and stack traces carefully
+4. Trace the code path from entry point to failure
+5. Identify the root cause (not just the symptom)
+6. Propose a fix with evidence
 
 ## Investigation Approach
 
@@ -45,12 +46,12 @@ Investigate bugs, identify root causes, and propose evidence-based fixes.
 [Explanation of what's wrong and why, with file:line references]
 
 ### Call Chain
-1. `src/api/routes/users.ts:45` -- Request enters here
-2. `src/services/users.ts:23` -- Calls service method
-3. `src/repositories/users.ts:67` -- **BUG HERE** -- [explanation]
+1. `[entry-point-file]:45` -- Request enters here
+2. `[service-file]:23` -- Calls service method
+3. `[data-access-file]:67` -- **BUG HERE** -- [explanation]
 
 ### Proposed Fix
-**File**: `src/repositories/users.ts:67`
+**File**: `[file-path]:67`
 **Change**: [description of what to change]
 ```typescript
 // Before

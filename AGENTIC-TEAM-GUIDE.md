@@ -48,9 +48,10 @@ AgenticDevelopmentTeam/
 ### Quick Start
 
 1. Copy this directory structure into your project
-2. Customize `CLAUDE.md` with your actual tech stack, commands, and conventions
-3. Customize `AGENTS.md` with your project-specific setup instructions
-4. Update `docs/templates/PRD-TEMPLATE.md` with your codebase paths and patterns
+2. Fill in `PROJECT.md` with your tech stack, commands, directory layout, and conventions
+3. Update `.claude/settings.json` with Bash permissions for your project's tools (see `PROJECT.md` Permissions Guidance)
+4. Customize `CLAUDE.md` with any additional project context
+5. Update `docs/templates/PRD-TEMPLATE.md` with your codebase paths and patterns
 
 ### Running a Feature Workflow
 

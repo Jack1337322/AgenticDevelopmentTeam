@@ -8,83 +8,49 @@
 Agentic product development team workspace. Multi-agent architecture with specialized
 roles handling requirements, architecture, implementation, testing, review, and documentation.
 
-**Tech Stack**: TypeScript (strict), Node.js, React, PostgreSQL, Vitest, Playwright
+**Tech Stack**: See `PROJECT.md` for language, runtime, framework, database, and tooling.
 
 ## Setup
 
-```bash
-pnpm install
-cp .env.example .env
-pnpm db:migrate
-pnpm db:seed
-pnpm dev
-```
+See `PROJECT.md` for install, environment setup, and database commands.
 
 ## Build & Test
 
-| Task | Command |
-|------|---------|
-| Dev server | `pnpm dev` |
-| Build | `pnpm build` |
-| Unit tests | `pnpm test` |
-| Single test | `pnpm test -- path/to/file.test.ts` |
-| E2E tests | `pnpm test:e2e` |
-| Coverage | `pnpm test:coverage` |
-| Lint | `pnpm lint --fix` |
-| Type check | `pnpm typecheck` |
+See `PROJECT.md` for the full command table (dev, build, test, lint, typecheck, etc.).
 
 ## Architecture
 
-```
-src/
-├── api/            # HTTP layer (routes, controllers, middleware)
-├── services/       # Business logic (no HTTP awareness)
-├── repositories/   # Data access (SQL queries, ORM calls)
-├── models/         # Type definitions and validation schemas
-├── utils/          # Pure utility functions
-├── config/         # Environment and app configuration
-└── ui/             # Frontend React components
-    ├── components/ # Reusable UI components
-    ├── pages/      # Page-level components
-    ├── hooks/      # Custom React hooks
-    └── stores/     # State management
+See `PROJECT.md` for the project directory structure and architecture pattern.
 
+```
 docs/
 ├── prds/           # Product Requirements Documents
 ├── architecture/   # Technical design documents
 └── templates/      # Document templates
 ```
 
-**Data flow**: Route → Controller → Service → Repository → Database
-
 ## Code Style
 
-- TypeScript strict mode, no `any` -- use `unknown` and narrow
-- `const` over `let`, never `var`
-- Named exports, no default exports
-- Barrel files (`index.ts`) for module public APIs
-- File naming: `kebab-case.ts` for modules, `PascalCase.tsx` for components
-- Imports: external → internal → relative, separated by blank lines
-- Functions under 30 lines; extract helpers when needed
-- Error handling: use `Result<T, E>` pattern, never throw from services
+- Functions should have a single responsibility and stay short
+- Use clear, descriptive names; no abbreviations
+- Follow the import ordering convention defined in `PROJECT.md`
+- Follow file naming conventions from `PROJECT.md`
+- See `PROJECT.md` for language-specific coding rules
 
 ## Testing
 
-- Unit tests colocated as `*.test.ts` next to source files
-- Integration tests in `tests/integration/`
-- E2E tests in `tests/e2e/`
 - Use factories and fixtures, not hardcoded test data
 - Mock external services, never call real APIs in tests
 - Every acceptance criterion from the PRD must have at least one test
+- Follow test file naming and location conventions from `PROJECT.md`
 
 ## Security
 
-- Auth: JWT tokens in httpOnly cookies
-- Input validation: Zod schemas on all API endpoints
-- SQL: parameterized queries only (ORM handles this)
 - NEVER log tokens, passwords, or PII
 - NEVER commit `.env`, credentials, or API keys
 - NEVER disable security middleware for convenience
+- Injection prevention appropriate to the tech stack (see `PROJECT.md`)
+- See `PROJECT.md` for project-specific security rules
 
 ## Git Workflow
 

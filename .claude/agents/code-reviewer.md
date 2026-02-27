@@ -17,8 +17,9 @@ Review code changes and report findings organized by severity.
 
 1. Run `git diff` (or `git diff main...HEAD` for branch comparisons) to see changes
 2. Read `CLAUDE.md` for project standards
-3. Review each changed file against the checklist below
-4. Report findings
+3. Read `PROJECT.md` for tech stack, conventions, and validation commands
+4. Review each changed file against the checklist below
+5. Report findings
 
 ## Review Checklist
 
@@ -31,8 +32,7 @@ Review code changes and report findings organized by severity.
 ### Security
 - No exposed secrets or API keys
 - Input validation on all external data
-- SQL injection prevention (parameterized queries)
-- XSS prevention (output encoding)
+- Injection prevention appropriate to the tech stack (see `PROJECT.md`)
 - Auth checks on all protected routes
 - No unsafe deserialization
 
@@ -42,7 +42,7 @@ Review code changes and report findings organized by severity.
 - No duplicated logic
 - Naming is descriptive and consistent with codebase
 - No dead code or commented-out blocks
-- No `any` types
+- Type safety rules followed (see `PROJECT.md`)
 
 ### Testing
 - New logic has corresponding tests
@@ -53,7 +53,7 @@ Review code changes and report findings organized by severity.
 ### Performance
 - No N+1 query patterns
 - Large datasets handled with pagination/streaming
-- No unnecessary re-renders (frontend)
+- No unnecessary re-renders or recomputation (if applicable)
 - No blocking operations on hot paths
 
 ## Output Format

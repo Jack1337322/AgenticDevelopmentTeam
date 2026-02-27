@@ -18,8 +18,9 @@ Implement features according to PRDs and design docs, following project conventi
 1. Read the PRD: `docs/prds/PRD-[feature].md`
 2. Read the design doc: `docs/architecture/[feature].md`
 3. Read `CLAUDE.md` for conventions
-4. Study existing patterns in the relevant directories
-5. Check test patterns in existing test files
+4. Read `PROJECT.md` for tech stack, commands, and conventions
+5. Study existing patterns in the relevant directories
+6. Check test patterns in existing test files
 
 ## Implementation Process
 
@@ -27,12 +28,7 @@ Follow the phases from the design doc. For each phase:
 
 1. Implement the code changes
 2. Write tests for the new logic
-3. Run validation:
-   ```bash
-   pnpm typecheck
-   pnpm test
-   pnpm lint
-   ```
+3. Run the validation command from `PROJECT.md`
 4. Fix any failures before moving to the next phase
 5. Commit after each passing phase
 
@@ -40,11 +36,11 @@ Follow the phases from the design doc. For each phase:
 
 - ALWAYS follow existing code patterns -- do not invent new abstractions
 - ALWAYS write tests for new business logic
-- ALWAYS run `pnpm test && pnpm typecheck && pnpm lint` after changes
-- NEVER use `any` type -- use `unknown` and narrow
+- ALWAYS run the validation command from `PROJECT.md` after changes
+- NEVER bypass the project's type safety rules (see `PROJECT.md`)
 - NEVER skip error handling
 - NEVER modify existing migration files
 - NEVER commit secrets or credentials
 - Keep functions under 30 lines
-- Every public function needs a JSDoc comment
+- Every public function needs a doc comment following project conventions
 - Use descriptive variable names; no abbreviations

@@ -6,6 +6,9 @@ This is an **agentic product development team** workspace. It uses specialized A
 to handle the full software development lifecycle: requirements, architecture, implementation,
 testing, review, and documentation.
 
+> **Project-specific configuration** (tech stack, commands, directory layout) lives in
+> [`PROJECT.md`](PROJECT.md). All agents read it automatically.
+
 ## Agent Team Structure
 
 This project uses Claude Code sub-agents defined in `.claude/agents/`. Each agent has a
@@ -25,9 +28,25 @@ delegates to specialists:
 ## Workflow Commands
 
 Custom commands in `.claude/commands/`:
+
+### Core Workflows
 - `/new-feature [description]` -- Full feature workflow: PRD → design → implement → test → review
-- `/fix-bug [description]` -- Bug workflow: investigate → fix → test → review
+- `/fix-bug [description]` -- Bug workflow: investigate → fix → test → review (supports GitHub issue IDs)
 - `/review-code` -- Run code review on current changes
+
+### Plan/Execute Loop
+- `/plan [feature]` -- Create a detailed implementation plan with codebase analysis
+- `/execute [plan-path]` -- Implement from a plan file, task by task with validation
+- `/prime` -- Load project context (structure, docs, recent activity)
+- `/commit` -- Stage and create an atomic commit with conventional prefix
+
+### Validation & Process Improvement
+- `/validation:validate` -- Full project health check (lint, types, tests, build, code quality)
+- `/validation:execution-report [plan-path]` -- Post-implementation report: what was built, divergences from plan
+- `/validation:system-review [plan] [report]` -- Meta-analysis: plan vs. execution, process improvements
+
+### GitHub Issue Integration
+- `/github-issue:rca [issue-id]` -- Investigate a GitHub issue, create RCA document at `docs/rca/`
 
 ## Directory Structure
 
@@ -35,11 +54,16 @@ Custom commands in `.claude/commands/`:
 .claude/
   agents/           -- Agent definitions (role, tools, model, system prompt)
   commands/         -- Reusable workflow commands
+    validation/     -- Validation and process improvement commands
+    github-issue/   -- GitHub issue workflows (RCA)
+  reference/        -- Tech-stack best practices (populated per project)
   settings.json     -- Shared team settings (committed)
   settings.local.json -- Personal settings (gitignored)
 docs/
   prds/             -- Product Requirements Documents
   architecture/     -- Technical design documents
+  plans/            -- Implementation plans (from /plan command)
+  rca/              -- Root Cause Analysis documents (from /rca command)
   templates/        -- PRD and design doc templates
 CLAUDE.md           -- This file (Claude-specific project context)
 AGENTS.md           -- Universal agent instructions (all AI tools)
@@ -75,26 +99,15 @@ AGENTS.md           -- Universal agent instructions (all AI tools)
 
 ## Code Standards
 
-- TypeScript strict mode, no `any` types
-- Functional patterns preferred over classes
 - Error handling: never swallow errors silently
 - All new business logic must have tests
-- Run validation before every commit: `pnpm test && pnpm typecheck && pnpm lint`
+- Functional patterns preferred over classes
+- Run the validation command from `PROJECT.md` before every commit
+- Follow language-specific rules defined in `PROJECT.md`
 
 ## Commands
 
-```
-pnpm install          # Install dependencies
-pnpm dev              # Start dev server
-pnpm build            # Production build
-pnpm test             # Run all tests
-pnpm test:coverage    # Tests with coverage report
-pnpm typecheck        # TypeScript type checking
-pnpm lint             # ESLint
-pnpm lint:fix         # ESLint with auto-fix
-pnpm db:migrate       # Run database migrations
-pnpm db:seed          # Seed development data
-```
+See `PROJECT.md` for the full command table (install, dev, build, test, lint, typecheck, etc.).
 
 ## Git Workflow
 
@@ -121,5 +134,5 @@ pnpm db:seed          # Seed development data
 - Commit secrets, API keys, or credentials
 - Modify existing migration files after they've been applied
 - Push to main/master directly
-- Bypass TypeScript strict mode
+- Bypass the project's type safety settings (see PROJECT.md)
 - Skip writing tests for new logic

@@ -16,9 +16,10 @@ Create technical design documents that translate PRDs into implementation plans.
 ## Process
 
 1. Read the PRD thoroughly (in `docs/prds/`)
-2. Analyze existing codebase patterns in `src/`
-3. Check current data models, API patterns, and service layer conventions
-4. Create design doc at `docs/architecture/[feature-name].md`
+2. Read `PROJECT.md` for tech stack, commands, and conventions
+3. Analyze existing codebase patterns in `src/`
+4. Check current data models, API patterns, and service layer conventions
+5. Create design doc at `docs/architecture/[feature-name].md`
 
 ## Design Document Structure
 
@@ -44,20 +45,14 @@ Tables, columns, relationships, migration strategy.
 ## File Changes
 | File | Change Type | Description |
 |------|------------|-------------|
-| `src/services/foo.ts` | Modify | Add new method |
-| `src/models/bar.ts` | Create | New data model |
+| `[path]/foo` | Modify | Add new method |
+| `[path]/bar` | Create | New data model |
 
 ## Implementation Order
 Ordered phases with dependencies. Each phase must be independently testable.
 
-1. **Phase 1: Data Layer** -- migrations, models, repository methods
-   - Validation: `pnpm test -- tests/repositories/`
-2. **Phase 2: Service Layer** -- business logic, validation schemas
-   - Validation: `pnpm test -- tests/services/`
-3. **Phase 3: API Layer** -- routes, controllers, middleware
-   - Validation: `pnpm test -- tests/integration/`
-4. **Phase 4: UI** -- components, hooks, pages
-   - Validation: `pnpm test -- src/ui/`
+Follow the phase ordering from `PROJECT.md`. Each phase must be independently testable.
+Use the validation command from `PROJECT.md` to verify each phase.
 
 ## Risks and Mitigations
 | Risk | Impact | Mitigation |

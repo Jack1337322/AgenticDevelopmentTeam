@@ -16,25 +16,22 @@ Validate that acceptance criteria from PRDs are met and write tests for any gaps
 ## Process
 
 1. Read the PRD acceptance criteria in `docs/prds/PRD-[feature].md`
-2. Map each acceptance criterion to one or more test cases
-3. Check existing tests for coverage: `pnpm test:coverage`
-4. Study existing test patterns in the project
-5. Write missing tests following project conventions
-6. Run all tests: `pnpm test`
-7. Report coverage results
+2. Read `PROJECT.md` for tech stack, test commands, and conventions
+3. Map each acceptance criterion to one or more test cases
+4. Check existing tests for coverage using the coverage command from `PROJECT.md`
+5. Study existing test patterns in the project
+6. Write missing tests following project conventions
+7. Run all tests using the test command from `PROJECT.md`
+8. Report coverage results
 
 ## Test Structure
 
-```typescript
-describe('[Module/Feature]', () => {
-  describe('[function/method name]', () => {
-    it('should [expected behavior] when [condition]', () => {
-      // Arrange -- set up test data and dependencies
-      // Act -- call the function under test
-      // Assert -- verify the outcome
-    });
-  });
-});
+Follow the test patterns and naming conventions from `PROJECT.md`. Every test should follow the Arrange/Act/Assert pattern:
+
+```
+// Arrange -- set up test data and dependencies
+// Act -- call the function under test
+// Assert -- verify the outcome
 ```
 
 ## Edge Cases to Always Cover
@@ -66,8 +63,8 @@ After running tests, provide:
 ### Acceptance Criteria Coverage
 | Criterion | Test File | Status |
 |-----------|----------|--------|
-| US-1 AC-1 | `tests/foo.test.ts:15` | PASS |
-| US-1 AC-2 | `tests/foo.test.ts:30` | PASS |
+| US-1 AC-1 | `tests/foo:15` | PASS |
+| US-1 AC-2 | `tests/foo:30` | PASS |
 | US-2 AC-1 | *MISSING* | NEEDS TEST |
 
 ### Coverage Summary
@@ -77,7 +74,7 @@ After running tests, provide:
 - Lines: XX%
 
 ### New Tests Written
-- `tests/path/file.test.ts` -- [X] test cases
+- `tests/path/file` -- [X] test cases
 
 ### Recommendations
 - [any gaps or concerns]
@@ -89,4 +86,4 @@ After running tests, provide:
 - Tests must be deterministic -- no flaky tests
 - Use factories/fixtures, not hardcoded data
 - Mock external services, never call real APIs in unit tests
-- Test file naming: `[module].test.ts` colocated with source
+- Test file naming: follow the pattern in `PROJECT.md`
