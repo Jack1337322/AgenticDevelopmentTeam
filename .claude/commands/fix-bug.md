@@ -4,6 +4,13 @@ Execute the following workflow for fixing a bug. Follow each step in order.
 to fetch full context before starting the investigation.
 
 ## Step 1: Investigate
+
+First, check for prior debug work:
+- Search `docs/rca/` for existing debug session files (`debug-*.md`) matching this bug
+- If a prior session is found, present the findings and ask:
+  "Prior debug work exists. Resume from this, or start fresh?"
+- If resuming, pass the debug session file path to the debugger agent as context
+
 Use the **debugger** agent to investigate the root cause of this bug.
 
 If this is a GitHub issue, create an RCA document at `docs/rca/issue-$ARGUMENTS.md`

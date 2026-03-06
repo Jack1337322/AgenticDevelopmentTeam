@@ -30,9 +30,11 @@ delegates to specialists:
 Custom commands in `.claude/commands/`:
 
 ### Core Workflows
-- `/new-feature [description]` -- Full feature workflow: PRD → design → implement → test → review
+- `/new-feature [description]` -- Full feature workflow: PRD → discuss → design → implement → test → verify → review
 - `/fix-bug [description]` -- Bug workflow: investigate → fix → test → review (supports GitHub issue IDs)
 - `/review-code` -- Run code review on current changes
+- `/discuss [PRD-path]` -- Capture implementation preferences before technical design
+- `/quick [description]` -- Fast implementation for small changes (skips PRD/design pipeline)
 
 ### Plan/Execute Loop
 - `/plan [feature]` -- Create a detailed implementation plan with codebase analysis
@@ -44,6 +46,11 @@ Custom commands in `.claude/commands/`:
 - `/validation:validate` -- Full project health check (lint, types, tests, build, code quality)
 - `/validation:execution-report [plan-path]` -- Post-implementation report: what was built, divergences from plan
 - `/validation:system-review [plan] [report]` -- Meta-analysis: plan vs. execution, process improvements
+- `/verify [PRD-path]` -- Verify implementation against PRD acceptance criteria with evidence
+
+### Session Management
+- `/pause` -- Save current work context to STATE.md for session continuity
+- `/resume` -- Restore context from STATE.md and continue where you left off
 
 ### GitHub Issue Integration
 - `/github-issue:rca [issue-id]` -- Investigate a GitHub issue, create RCA document at `docs/rca/`
@@ -61,10 +68,11 @@ Custom commands in `.claude/commands/`:
   settings.local.json -- Personal settings (gitignored)
 docs/
   prds/             -- Product Requirements Documents
-  architecture/     -- Technical design documents
-  plans/            -- Implementation plans (from /plan command)
-  rca/              -- Root Cause Analysis documents (from /rca command)
-  templates/        -- PRD and design doc templates
+  architecture/     -- Technical design documents and CONTEXT-*.md decision docs
+  plans/            -- Implementation plans and verification reports
+  rca/              -- Root Cause Analysis documents and persistent debug sessions
+  state/            -- Session state persistence (STATE.md)
+  templates/        -- PRD, design doc, and context templates
 CLAUDE.md           -- This file (Claude-specific project context)
 AGENTS.md           -- Universal agent instructions (all AI tools)
 ```
@@ -77,10 +85,12 @@ AGENTS.md           -- Universal agent instructions (all AI tools)
 1. Human provides feature idea
 2. product-manager agent → creates PRD in docs/prds/
 3. Human reviews + approves PRD
+3.5. discuss command → captures preferences in CONTEXT-[feature].md
 4. architect agent → creates design doc in docs/architecture/
 5. Human reviews + approves design
 6. implementer agent → writes code on feature branch
 7. tester agent → validates acceptance criteria, writes tests
+7.5. verify command → maps acceptance criteria to evidence
 8. code-reviewer agent → reviews all changes
 9. Human reviews PR and merges
 ```
@@ -136,3 +146,14 @@ See `PROJECT.md` for the full command table (install, dev, build, test, lint, ty
 - Push to main/master directly
 - Bypass the project's type safety settings (see PROJECT.md)
 - Skip writing tests for new logic
+
+## Context Management
+
+- For multi-phase implementations, spawn fresh sub-agents per phase to prevent
+  context degradation (quality drops as context windows fill)
+- The `/execute` command should use the implementer agent per task, not accumulate
+  all implementation work in a single agent session
+- For complex debugging, save progress to `docs/rca/` and spawn fresh debugger
+  agents for new hypotheses
+- If you notice quality degradation (repetition, confusion, rushed output), save
+  state with `/pause` and start a fresh session with `/resume`

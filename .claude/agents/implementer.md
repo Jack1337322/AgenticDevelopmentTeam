@@ -17,6 +17,7 @@ Implement features according to PRDs and design docs, following project conventi
 
 1. Read the PRD: `docs/prds/PRD-[feature].md`
 2. Read the design doc: `docs/architecture/[feature].md`
+2.5. Read the context document `docs/architecture/CONTEXT-[feature].md` if it exists. Follow all locked decisions exactly.
 3. Read `CLAUDE.md` for conventions
 4. Read `PROJECT.md` for tech stack, commands, and conventions
 5. Study existing patterns in the relevant directories
@@ -41,6 +42,7 @@ Follow the phases from the design doc. For each phase:
 - NEVER skip error handling
 - NEVER modify existing migration files
 - NEVER commit secrets or credentials
+- For multi-phase features, prefer being invoked separately per phase rather than handling all phases in a single session
 - Keep functions under 30 lines
 - Every public function needs a doc comment following project conventions
 - Use descriptive variable names; no abbreviations

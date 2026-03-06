@@ -8,9 +8,16 @@ The agent should save it to `docs/prds/PRD-[feature-name].md`.
 Present a summary of the PRD to me. Wait for my approval before proceeding.
 If I request changes, update the PRD and present again.
 
+## Step 2.5: Discuss Implementation Preferences
+Use the `/discuss` command with the approved PRD to capture implementation preferences
+and resolve gray areas. Save decisions to `docs/architecture/CONTEXT-[feature-name].md`.
+Wait for my confirmation that all decisions are captured.
+
 ## Step 3: Create Technical Design
 Use the **architect** agent to create a technical design based on the approved PRD.
-The agent should save it to `docs/architecture/[feature-name].md`.
+The architect should read the context doc at `docs/architecture/CONTEXT-[feature-name].md`
+and respect all locked decisions.
+The agent should save the design to `docs/architecture/[feature-name].md`.
 
 ## Step 4: Human Review
 Present a summary of the technical design. Wait for my approval before proceeding.
@@ -23,6 +30,11 @@ After each phase, run the validation command from `PROJECT.md`
 ## Step 6: Test
 Use the **tester** agent to validate all acceptance criteria from the PRD
 and write any missing tests.
+
+## Step 6.5: Verify Against PRD
+Use the `/verify` command with the PRD path to confirm all acceptance criteria are met
+with evidence. If any criteria are MISSING or FAILING, use the **tester** agent to
+address gaps before proceeding to review.
 
 ## Step 7: Review
 Use the **code-reviewer** agent to review all changes on the feature branch.

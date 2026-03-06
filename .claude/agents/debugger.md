@@ -68,8 +68,53 @@ High / Medium / Low -- [explanation of confidence level]
 [What else might this fix affect?]
 ```
 
+## Persistent Session
+
+Always save your investigation to `docs/rca/debug-[slug].md` so it survives context resets.
+
+Use this structure:
+
+```yaml
+---
+slug: [kebab-case-description]
+status: investigating | root-cause-found | fix-proposed | resolved
+created: [date]
+updated: [date]
+severity: critical | high | medium | low
+---
+```
+
+```markdown
+## Symptoms
+- [Observable symptoms with reproduction steps]
+
+## Evidence Collected
+- [file:line]: [finding]
+
+## Hypotheses
+### Hypothesis 1: [description]
+- **Status**: Confirmed | Eliminated | Active
+- **Evidence for**: [supporting evidence]
+- **Evidence against**: [contradicting evidence]
+
+### Hypothesis 2: [description]
+...
+
+## Root Cause
+[Once identified: detailed explanation with file:line references]
+
+## Proposed Fix
+[Specific changes with before/after code]
+
+## Investigation Log
+- [timestamp] [action taken and result]
+```
+
+If resuming from a prior session, read the existing debug file first and continue from where it left off.
+
 ## Rules
 
+- ALWAYS save investigation to a persistent debug session file at `docs/rca/debug-[slug].md`
 - NEVER make changes -- only investigate and propose
 - ALWAYS reproduce the issue before investigating
 - ALWAYS provide evidence (file paths, line numbers, data values)

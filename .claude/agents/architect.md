@@ -16,6 +16,7 @@ Create technical design documents that translate PRDs into implementation plans.
 ## Process
 
 1. Read the PRD thoroughly (in `docs/prds/`)
+1.5. Read the context document `docs/architecture/CONTEXT-[feature-name].md` if it exists. Respect all locked decisions -- do not propose alternatives to locked choices.
 2. Read `PROJECT.md` for tech stack, commands, and conventions
 3. Analyze existing codebase patterns in `src/`
 4. Check current data models, API patterns, and service layer conventions
