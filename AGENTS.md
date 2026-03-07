@@ -33,8 +33,11 @@ docs/
 
 - Functions should have a single responsibility and stay short
 - Use clear, descriptive names; no abbreviations
+- Functional patterns preferred over classes
+- Error handling: never swallow errors silently
 - Follow the import ordering convention defined in `PROJECT.md`
 - Follow file naming conventions from `PROJECT.md`
+- Run the validation command from `PROJECT.md` before every commit
 - See `PROJECT.md` for language-specific coding rules
 
 ## Testing
@@ -61,12 +64,5 @@ docs/
 
 ## Agent Workflow
 
-Features flow through a defined pipeline:
-1. **PRD** created by product-manager agent in `docs/prds/`
-2. **Design doc** created by architect agent in `docs/architecture/`
-3. **Implementation** by implementer agent on feature branch
-4. **Tests** validated by tester agent
-5. **Review** by code-reviewer agent
-6. **Merge** approved by human
-
-PRD templates are in `docs/templates/prd-template.md`.
+See `CLAUDE.md` for the full agent team structure, workflow skills, and development pipeline.
+PRD templates are in `docs/templates/`.

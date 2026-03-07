@@ -1,13 +1,7 @@
 # CLAUDE.md
 
-## Project Overview
-
-This is an **agentic product development team** workspace. It uses specialized AI agents
-to handle the full software development lifecycle: requirements, architecture, implementation,
-testing, review, and documentation.
-
-> **Project-specific configuration** (tech stack, commands, directory layout) lives in
-> [`PROJECT.md`](PROJECT.md). All agents read it automatically.
+> Claude Code-specific configuration. For universal coding rules see `AGENTS.md`.
+> For tech stack, commands, and directory layout see `PROJECT.md`.
 
 ## Agent Team Structure
 
@@ -25,9 +19,9 @@ delegates to specialists:
 | `debugger` | Root cause analysis, bug fixing | inherit | Investigating bugs |
 | `docs-writer` | API docs, architecture docs, changelogs | sonnet | Documentation tasks |
 
-## Workflow Commands
+## Workflow Skills
 
-Custom commands in `.claude/commands/`:
+Custom skills in `.claude/skills/`:
 
 ### Core Workflows
 - `/new-feature [description]` -- Full feature workflow: PRD → discuss → design → implement → test → verify → review
@@ -35,6 +29,8 @@ Custom commands in `.claude/commands/`:
 - `/review-code` -- Run code review on current changes
 - `/discuss [PRD-path]` -- Capture implementation preferences before technical design
 - `/quick [description]` -- Fast implementation for small changes (skips PRD/design pipeline)
+- `/refactor [description]` -- Large multi-phase refactoring with incremental validation
+- `/release [version]` -- Generate release notes, changelog, and version bump
 
 ### Plan/Execute Loop
 - `/plan [feature]` -- Create a detailed implementation plan with codebase analysis
@@ -43,26 +39,46 @@ Custom commands in `.claude/commands/`:
 - `/commit` -- Stage and create an atomic commit with conventional prefix
 
 ### Validation & Process Improvement
-- `/validation:validate` -- Full project health check (lint, types, tests, build, code quality)
-- `/validation:execution-report [plan-path]` -- Post-implementation report: what was built, divergences from plan
-- `/validation:system-review [plan] [report]` -- Meta-analysis: plan vs. execution, process improvements
+- `/validate` -- Full project health check (lint, types, tests, build, code quality)
+- `/execution-report [plan-path]` -- Post-implementation report: what was built, divergences from plan
+- `/system-review [plan] [report]` -- Meta-analysis: plan vs. execution, process improvements
 - `/verify [PRD-path]` -- Verify implementation against PRD acceptance criteria with evidence
+- `/retro [feature]` -- Post-implementation retrospective that updates CLAUDE.md with learnings
+
+### Testing & Security
+- `/e2e-test [feature]` -- Design and implement end-to-end integration tests
+- `/security-audit [area]` -- Security-focused review (OWASP Top 10, deps, auth)
+
+### Maintenance
+- `/update-deps [package]` -- Dependency updates with security audit and validation
+- `/perf [area]` -- Performance profiling, optimization, and benchmarking
+- `/migrate [description]` -- Database/API migration workflow with rollback plan
+- `/tech-debt [area]` -- Identify and address technical debt
 
 ### Session Management
 - `/pause` -- Save current work context to STATE.md for session continuity
 - `/resume` -- Restore context from STATE.md and continue where you left off
 
-### GitHub Issue Integration
-- `/github-issue:rca [issue-id]` -- Investigate a GitHub issue, create RCA document at `docs/rca/`
+### Documentation & Investigation
+- `/onboard [area]` -- Generate onboarding docs from existing codebase
+- `/rca [issue-id]` -- Investigate a GitHub issue, create RCA document at `docs/rca/`
+
+### Domain Skills (auto-loaded by Claude when relevant)
+- `react-patterns` -- React component patterns, hooks, state management, accessibility
+- `nextjs-conventions` -- App Router, Server/Client Components, data fetching, middleware
+- `node-backend` -- Middleware, error handling, validation, logging, async patterns
+- `api-design` -- REST conventions, response formats, pagination, error responses
+- `database-patterns` -- Schema design, migrations, query optimization, indexing
+- `frontend-testing` -- React Testing Library, component tests, MSW mocking
+- `backend-testing` -- API tests, database setup/teardown, fixtures, factories
+- `auth-patterns` -- JWT flows, session management, RBAC, password hashing, CSRF
 
 ## Directory Structure
 
 ```
 .claude/
   agents/           -- Agent definitions (role, tools, model, system prompt)
-  commands/         -- Reusable workflow commands
-    validation/     -- Validation and process improvement commands
-    github-issue/   -- GitHub issue workflows (RCA)
+  skills/           -- Workflow skills and domain knowledge (SKILL.md format)
   reference/        -- Tech-stack best practices (populated per project)
   settings.json     -- Shared team settings (committed)
   settings.local.json -- Personal settings (gitignored)
@@ -85,12 +101,12 @@ AGENTS.md           -- Universal agent instructions (all AI tools)
 1. Human provides feature idea
 2. product-manager agent → creates PRD in docs/prds/
 3. Human reviews + approves PRD
-3.5. discuss command → captures preferences in CONTEXT-[feature].md
+3.5. discuss skill → captures preferences in CONTEXT-[feature].md
 4. architect agent → creates design doc in docs/architecture/
 5. Human reviews + approves design
 6. implementer agent → writes code on feature branch
 7. tester agent → validates acceptance criteria, writes tests
-7.5. verify command → maps acceptance criteria to evidence
+7.5. verify skill → maps acceptance criteria to evidence
 8. code-reviewer agent → reviews all changes
 9. Human reviews PR and merges
 ```
@@ -107,23 +123,10 @@ AGENTS.md           -- Universal agent instructions (all AI tools)
 7. Human reviews and merges
 ```
 
-## Code Standards
+## Standards
 
-- Error handling: never swallow errors silently
-- All new business logic must have tests
-- Functional patterns preferred over classes
-- Run the validation command from `PROJECT.md` before every commit
-- Follow language-specific rules defined in `PROJECT.md`
-
-## Commands
-
-See `PROJECT.md` for the full command table (install, dev, build, test, lint, typecheck, etc.).
-
-## Git Workflow
-
-- Branch naming: `feat/`, `fix/`, `chore/`, `refactor/` prefixes
-- Commits: conventional commits (`feat:`, `fix:`, `chore:`, `docs:`)
-- PRs require passing CI and human approval
+See `AGENTS.md` for code style, testing, security, and git workflow rules.
+See `PROJECT.md` for the full command table, tech stack, and language-specific conventions.
 
 ## Boundaries
 
@@ -151,7 +154,7 @@ See `PROJECT.md` for the full command table (install, dev, build, test, lint, ty
 
 - For multi-phase implementations, spawn fresh sub-agents per phase to prevent
   context degradation (quality drops as context windows fill)
-- The `/execute` command should use the implementer agent per task, not accumulate
+- The `/execute` skill should use the implementer agent per task, not accumulate
   all implementation work in a single agent session
 - For complex debugging, save progress to `docs/rca/` and spawn fresh debugger
   agents for new hypotheses

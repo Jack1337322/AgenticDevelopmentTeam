@@ -30,10 +30,12 @@ AgenticDevelopmentTeam/
 │   │   ├── tester.md                      # Test writing, coverage validation
 │   │   ├── debugger.md                    # Root cause analysis, bug investigation
 │   │   └── docs-writer.md                 # Documentation generation
-│   └── commands/
-│       ├── new-feature.md                 # /new-feature [description]
-│       ├── fix-bug.md                     # /fix-bug [description]
-│       └── review-code.md                 # /review-code
+│   └── skills/                            # Workflow skills (SKILL.md format)
+│       ├── new-feature/SKILL.md           # /new-feature [description]
+│       ├── fix-bug/SKILL.md               # /fix-bug [description]
+│       ├── review-code/SKILL.md           # /review-code
+│       ├── ... (26 workflow skills)       # See CLAUDE.md for full list
+│       └── ... (8 domain skills)          # Auto-loaded background knowledge
 └── docs/
     ├── templates/
     │   └── PRD-TEMPLATE.md                # Agent-optimized PRD template
