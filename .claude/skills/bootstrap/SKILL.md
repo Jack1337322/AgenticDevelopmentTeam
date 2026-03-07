@@ -23,8 +23,9 @@ Wait for the user to answer before proceeding. Confirm the choices back to them.
 
 ## Step 2: Fill in PROJECT.md
 
-Using the confirmed tech stack, auto-populate every section of `PROJECT.md`:
+Using the project idea and confirmed tech stack, auto-populate every section of `PROJECT.md`:
 
+- **Product Overview** -- product name, one-line description, target users, core problem, key domain concepts, deployment target, external integrations, and product goals
 - **Tech Stack** table -- fill in all rows based on chosen stack
 - **Commands** table -- install, dev, build, test, lint, typecheck (use real commands for the chosen tools)
 - **Validation Command** -- composite command that runs tests + lint + typecheck

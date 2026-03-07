@@ -2,7 +2,34 @@
 
 > **Project-specific configuration for the agentic development team.**
 > Fill in every section below before running workflows. Agents read this file to understand
-> your tech stack, commands, directory layout, and conventions.
+> your product, tech stack, commands, directory layout, and conventions.
+
+---
+
+## Product Overview
+
+> What is this project? Agents use this section to understand the business context,
+> make better design decisions, and write code that fits the product domain.
+
+| Field | Description |
+|-------|-------------|
+| Product name | `[e.g., RemindBot, Acme Dashboard]` |
+| One-line description | `[e.g., A Telegram bot that sends daily reminders]` |
+| Target users | `[e.g., busy professionals, small teams, developers]` |
+| Core problem | `[e.g., users forget recurring tasks and miss deadlines]` |
+| Key domain concepts | `[e.g., reminders, schedules, notifications, users]` |
+| Deployment target | `[e.g., Vercel, AWS Lambda, Docker on VPS, App Store]` |
+| External integrations | `[e.g., Telegram Bot API, Stripe, SendGrid, none]` |
+
+### Product Goals
+
+```
+[e.g.,
+1. Users can create, edit, and delete daily reminders via chat commands
+2. Reminders fire at the user's local time with timezone support
+3. Free tier: 5 reminders, paid tier: unlimited
+]
+```
 
 ---
 
