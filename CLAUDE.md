@@ -24,6 +24,7 @@ delegates to specialists:
 Custom skills in `.claude/skills/`:
 
 ### Core Workflows
+- `/bootstrap [project description]` -- Initialize a new project from scratch: gather requirements → fill PROJECT.md → scaffold → validate
 - `/new-feature [description]` -- Full feature workflow: PRD → discuss → design → implement → test → verify → review
 - `/fix-bug [description]` -- Bug workflow: investigate → fix → test → review (supports GitHub issue IDs)
 - `/review-code` -- Run code review on current changes
